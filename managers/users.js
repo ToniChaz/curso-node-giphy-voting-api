@@ -43,6 +43,7 @@ function authenticate(username, pass, cb) {
   return cb(null, isValid);
 }
 
+
 module.exports = {
   addUser,
   findById,
