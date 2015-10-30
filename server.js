@@ -18,7 +18,6 @@ addMiddleware(server);
 addRoutes(server);
 server.use(errorHandler);
 
-
 const path = __dirname + ( process.argv[2] || '.');
 const port = process.argv[3] || '3000';
 

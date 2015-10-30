@@ -6,16 +6,24 @@ const request = require('request');
 
 const routes = express.Router();
 
-routes.get('/:term', function(req, res, next) {
-  let term = req.params.term;
+routes.post('/add', function(req, res, next) {
+  let term = req.body.term;
 
-  images.getGif(term, function(err, gifData) {
+  images.addGif(term, function(err, gif) {
      if (err) return next(err);
 
-    res.send(gifData);
-
+    res.send(gif);
   });
+});
 
+routes.get('/list', function(req, res, next) {
+  let term = req.body.term;
+
+  images.listGifs(function(err, list) {
+     if (err) return next(err);
+
+    res.send(list);
+  });
 });
 
 routes.get('/:term/gif', function(req, res, next) {

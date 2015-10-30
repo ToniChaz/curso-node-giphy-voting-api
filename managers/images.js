@@ -1,10 +1,11 @@
 'use strict';
 
 const request = require('request');
+const Gifs = require('../models/gifs');
 
 const GIPHY_SEARCH_URL = 'http://api.giphy.com/v1/gifs/search?q={{TERM}}&api_key=dc6zaTOxFJmzC';
 
-function getGif(term, cb) {
+function searchGif(term, cb) {
    if (!term) {
      return cb(new Error('Empty term'));
    }
@@ -30,6 +31,39 @@ function getGif(term, cb) {
 
 }
 
+function addGif(term, cb) {
+
+  searchGif(term, function(err, gifData) {
+    if (err) return cb(err);
+
+    let newGif = new Gifs({
+      term,
+      url: gifData.images.fixed_width.url
+    });
+
+    return newGif.save(cb);
+  });
+}
+
+function getGif(term, cb) {
+  return Gifs.findOne({ term }, cb);
+}
+
+function voteGif(id, username, cb) {
+  Gifs.findById(id, function(err, gif) {
+    if (err) return cb(err);
+
+    return Gifs.update({ $inc: { totalVotes: 1}, $push: { voters: [username]} },  cb);
+  });
+}
+
+function listGifs(cb) {
+  return Gifs.find({}, cb);
+}
+
 module.exports = {
-  getGif
+  addGif,
+  voteGif,
+  getGif,
+  listGifs
 };
