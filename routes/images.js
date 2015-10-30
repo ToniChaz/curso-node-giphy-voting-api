@@ -24,14 +24,10 @@ routes.get('/:term/gif', function(req, res, next) {
   images.getGif(term, function(err, gifData) {
      if (err) return next(err);
 
-     //res.setHeader('Content-type', 'image/gif');
-    //res.setHeader('Content-type', 'image/gif');
+    res.send(`<img src="${gifData.images.fixed_width.url}" />`)
+      //res.redirect(gifData.images.fixed_width.url);
 
-//    res.send(`<img src="${gifData.images.fixed_width.url}" />`)
-//    res.redirect(gifData.images.fixed_width.url);
-
-//      request(gifData.images.fixed_width.url).pipe(res);
-      request('http://google.com').pipe(res);
+      //request(gifData.images.fixed_width.url).pipe(res);
 
   });
 

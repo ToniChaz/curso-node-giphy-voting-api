@@ -1,48 +1,58 @@
 'use strict';
 
-let DB = {
-  "gustavo": {
-    "username": "gustavo",
-    "pass": "gus"
-  },
-  "tony": {
-    "username": "tony",
-    "pass": "XXX"
-  },
-};
+const User = require('../models/user');
 
 function addUser(data, cb) {
   let username = data.username;
+  let pass = data.pass;
 
-  if (DB[username]) {
-    return cb(new Error('User already exists'));
-  }
-  DB[username] = {
-    username: data.username,
-    pass: data.pass
-  };
+  User.findOne({
+    username
+  }, function(err, found) {
+    if (err) {
+      return cb(err);
+    }
 
-  console.log('User added',   DB[username]);
-  cb(null, DB[username]);
+    if (found) {
+       return cb(new Error('User already exists'));
+    }
+
+    let user = new User({
+      username: username,
+      pass: pass
+    });
+
+    return user.save(cb);
+
+/*
+    return user.save(function(err, res) {
+      if (err) return cb(err);
+
+      return cb(null, res);
+    });
+    */
+
+  });
 }
 
 function findById(username, cb) {
-   if (DB[username]) {
-     return cb(null, DB[id]);
-   }
-
-   return cb(null, null);
+   User.findOne({
+     username
+   }, cb);
 }
 
 function authenticate(username, pass, cb) {
-  if (!DB[username]) {
-    return cb(null, false);
-  }
-  let isValid = DB[username].pass === pass;
+  User.findOne({
+    username,
+    pass
+  }, function(err, found) {
+     if (err || !found) {
+       return cb(null, false);
+     }
 
-  return cb(null, isValid);
+     return cb(null, true);
+  });
 }
-
 
 module.exports = {
   addUser,

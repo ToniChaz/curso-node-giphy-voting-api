@@ -15,7 +15,6 @@ routes.post('/login', function(req, res, next) {
    let pass = req.body.pass;
 
    Users.authenticate(username, pass, function(err, isValid) {
-
      if (err) return next(err);
 
      if (!isValid) {
@@ -30,8 +29,22 @@ routes.post('/login', function(req, res, next) {
 
 });
 
-routes.post('/register', function(req, res, next) {
-   res.send({});
+routes.post('/register', function(req, res, next){
+  let username = req.body.username;
+  let pass = req.body.pass;
+  let data = {
+    username,
+    pass
+  };
+  Users.addUser(data, function(err, user) {
+    if(err){
+        if(err.message.match(/Already exists/i)) {
+          return res.status(409).send(err);
+        }
+        return next(err);
+    }
+    return res.send({success: true, id: user._id });
+  });
 });
 
 routes.get('/list', function(req, res, next) {
