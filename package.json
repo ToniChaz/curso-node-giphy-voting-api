@@ -1,18 +1,24 @@
 {
-  "name": "api-server",
+  "name": "GiVoApp",
   "version": "1.0.0",
-  "description": "giphy voting API",
-  "main": "server.js",
+  "description": "Fullstack giphy voting application with node mongo and react ",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Toni Chaz",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "mongoose": "^4.2.3",
+    "react": "^0.14.1",
+    "react-bootstrap": "^0.27.3",
+    "react-dom": "^0.14.1",
     "request": "^2.65.0"
+  },
+  "devDependencies": {
+    "babelify": "^7.0.2",
+    "browserify": "^12.0.1",
+    "vinyl-source-stream": "^1.1.0"
   }
 }
