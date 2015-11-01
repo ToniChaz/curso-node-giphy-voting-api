@@ -18,20 +18,18 @@ gulp.task('server', function () {
 
 gulp.task('build', function () {
     browserify({
-        entries: './app/index.jsx',
+        entries: './app/index.js',
         extensions: ['.jsx'],
         debug: true
     })
-        .transform(babelify.configure({
-            presets: ['react']
-        }))
-        .bundle()
-        .pipe(source('bundle.js'))
-        .pipe(gulp.dest('./build/js'))
+    .transform(babelify)
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest('./build/js/'))
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./app/**/*.jsx', ['build']);
+    gulp.watch('./app/**/*.js', ['build']);
 });
 
 gulp.task('default', ['server', 'watch']);

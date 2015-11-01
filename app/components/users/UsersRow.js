@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import UsersAvatar from '../users-avatar';
+import UsersAvatar from './UsersAvatar';
 
 class UsersRow extends React.Component {
 

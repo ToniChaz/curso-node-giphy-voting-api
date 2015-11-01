@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import UsersRow from '../users-row';
+import UsersRow from './UsersRow';
 
 class UsersList extends React.Component {
 
@@ -10,7 +10,7 @@ class UsersList extends React.Component {
             <ul className="media-list">
                 {
                     this.props.list.map((users) => {
-                        return <UsersRow key={ user.id }
+                        return <UsersRow key={ users.id }
                                          name={ users.fullName }
                                          picture={ users.pic }
                                          title={ users.title }
