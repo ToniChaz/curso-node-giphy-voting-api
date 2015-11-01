@@ -19,7 +19,7 @@ gulp.task('server', function () {
 gulp.task('build', function () {
     browserify({
         entries: './app/index.js',
-        extensions: ['.jsx'],
+        extensions: ['.js'],
         debug: true
     })
     .transform(babelify)
