@@ -6,7 +6,7 @@ const browserify = require('browserify');
 const babelify = require('babelify');
 const source = require('vinyl-source-stream');
 
-gulp.task('server', function() {
+gulp.task('server', function () {
     gulp.src('./build')
         .pipe(webserver({
             host: '0.0.0.0',
@@ -16,19 +16,21 @@ gulp.task('server', function() {
         }))
 });
 
-gulp.task('build', function() {
+gulp.task('build', function () {
     browserify({
         entries: './app/index.jsx',
         extensions: ['.jsx'],
         debug: true
     })
-        .transform(babelify)
+        .transform(babelify.configure({
+            presets: ['react']
+        }))
         .bundle()
         .pipe(source('bundle.js'))
         .pipe(gulp.dest('./build/js'))
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     gulp.watch('./app/**/*.jsx', ['build']);
 });
 

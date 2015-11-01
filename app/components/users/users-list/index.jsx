@@ -1,5 +1,7 @@
-import React from 'react'
-import UsersRow from '../users-row'
+'use strict';
+
+import React from 'react';
+import UsersRow from '../users-row';
 
 class UsersList extends React.Component {
 
@@ -9,10 +11,10 @@ class UsersList extends React.Component {
                 {
                     this.props.list.map((users) => {
                         return <UsersRow key={ user.id }
-                                            name={ users.fullName }
-                                            picture={ users.pic }
-                                            title={ users.title }
-                                            department={ users.department } />
+                                         name={ users.fullName }
+                                         picture={ users.pic }
+                                         title={ users.title }
+                                         department={ users.department }/>
                     })
                 }
             </ul>
@@ -20,4 +22,4 @@ class UsersList extends React.Component {
     }
 }
 
-export default UsersList
+export default UsersList;
